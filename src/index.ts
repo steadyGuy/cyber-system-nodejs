@@ -1,8 +1,11 @@
-import './config/dotenvConf';
+import dotenv from 'dotenv';
+
+dotenv.config();
 import express from 'express';
 import cors from 'cors';
 
 import router from './routes';
+import connection from './config/db';
 
 const app = express();
 
@@ -15,12 +18,8 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use('/api', router);
 
 // turn on the server
-const PORT = process.env.PORT || 3002;
+const port = process.env.PORT || 3000;
 
-connection.once('open', () => {
-  console.log('Mongodb connection established successfully');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

@@ -1,0 +1,15 @@
+FROM node:14-alpine as custom-node
+
+RUN mkdir -p /home/node/app_frontend/node_modules && chown -R node:node /home/node/app_frontend
+
+USER node
+
+WORKDIR /home/node/app_frontend
+
+COPY --chown=node:node frontend /home/node/app_frontend
+
+RUN npm install
+RUN npm run build --prod
+
+FROM nginx:alpine
+COPY --from=custom-node /home/node/app_frontend/dist/frontend /usr/share/nginx/html

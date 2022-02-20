@@ -10,26 +10,49 @@ import { MetricService } from './metric.service';
   styleUrls: ['./metrics.component.scss'],
 })
 export class MetricsComponent implements OnInit {
-  metrics: Metric[] = [];
+  metrics: Metric[] | null = null;
   selectedMetric?: Metric;
 
-  constructor(private metricService: MetricService, private messageService: MessageService) {}
+  pageStart: number = 0;
+  pageEnd: number = 1000;
+  pageHeight: number = 100;
+  pageBuffer: number = 1000;
+
+  constructor(
+    private metricService: MetricService,
+    private messageService: MessageService
+  ) {}
 
   onSelect(metric: Metric): void {
     this.selectedMetric = metric;
     this.messageService.add(`HeroesComponent: Selected hero id=${metric._id}`);
   }
 
-  getMetrics(): void {
-    this.metricService
-      .getMetrics()
-      .subscribe((metrics) => {
-        this.metrics = metrics;
-        console.log('METRICS', metrics)
-      });
+  // TODO: Fix any typing
+  onScroll(event: Event | any) {
+    const scrollTop = event.target.scrollTop;
+    const scrollHeight = event.target.scrollHeight;
+    const offsetHeight = event.target.offsetHeight;
+
+    const scrollPosition = scrollTop + offsetHeight;
+    const scrollTreshold = scrollHeight - this.pageHeight;
+    if (scrollPosition > scrollTreshold) {
+      this.pageEnd += this.pageBuffer;
+    }
+  }
+
+  getMetrics(type: string): void {
+    this.metricService.getMetrics(type).subscribe((metrics) => {
+      this.metrics = metrics;
+    });
+  }
+
+  deleteMetrics(): void {
+    this.metrics = null;
+    this.metricService.deleteMetrics().subscribe();
   }
 
   ngOnInit(): void {
-    this.getMetrics();
+    // this.getMetrics();
   }
 }

@@ -1,25 +1,18 @@
+import mongoose from "mongoose";
 
-import mongoose from 'mongoose';
-
-const {
-  MONGO_USERNAME,
-  MONGO_PASSWORD,
-  MONGO_HOSTNAME,
-  MONGO_PORT,
-  MONGO_DB
-} = process.env;
+const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOSTNAME, MONGO_PORT, MONGO_DB } =
+  process.env;
 
 const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 const options = {
   useNewUrlParser: true,
-  reconnectTries: Number.MAX_VALUE,
-  reconnectInterval: 500,
   connectTimeoutMS: 10000,
 };
 
-mongoose.connect(url, options)
+mongoose
+  .connect(url, options)
   .then(() => {
-    console.log('MongoDB is connected');
+    console.log("MongoDB is connected");
   })
   .catch((err: unknown) => {
     console.log(err);

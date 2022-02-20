@@ -10,4 +10,12 @@ const translations: Record<string, string> = {
     'Восточный': 'East'
 };
 
+export let translationsCode: Record<string, number> = {};
+export let translationsStrings: Record<number, string> = {};
+
+Object.keys(translations).forEach((tName, i) => {
+  translationsCode = {...translationsCode, [tName]: i}
+  translationsStrings = {...translationsStrings, [i]: tName}
+});
+
 export default translations;

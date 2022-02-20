@@ -1,21 +1,41 @@
 <h2>Metrics</h2>
-<table class="metrics">
-  <tr>
-    <th>Date</th>
-    <th>Temperature</th>
-    <th>Wind Direction</th>
-    <th>Wind Speed</th>
-  </tr>
-  <tr *ngFor="let metric of metrics">
-    <td>
-      <button type="button" (click)="onSelect(metric)" [class.selected]="metric === selectedMetric">
-       {{ metric.date }}
-      </button>
-    </td>
-    <td>{{metric.temperature}}</td>
-    <td>{{metric.windDirection}}</td>
-    <td>{{metric.windSpeed}}</td>
-  </tr>
-</table>
+<div *ngIf="metrics == null; then thenBlock; else elseBlock">
+  No data loaded...
+</div>
+
+<!-- <div>Please wait. Big chunk of data is loading...</div> -->
+
+<ng-template #thenBlock>
+  <button (click)="getMetrics('linear')">Get metrics using linear</button>
+  <button (click)="getMetrics('cosine')">Get metrics using cosine</button>
+</ng-template>
+
+<ng-template #elseBlock>
+  <button (click)="deleteMetrics()" title="delete metrics">
+    Delete metrics
+  </button>
+  <div>Data arrived</div>
+</ng-template>
+<div
+  style="height: 65vh; width: 100%; overflow: scroll"
+  (scroll)="onScroll($event)"
+>
+  <table class="metrics">
+    <tr>
+      <th>Date</th>
+      <th>Temperature</th>
+      <th>Wind Direction</th>
+      <th>Wind Speed</th>
+    </tr>
+    <tr *ngFor="let metric of metrics | slice: pageStart:pageEnd">
+      <td>
+        {{ metric.date }}
+      </td>
+      <td>{{ metric.temperature }}</td>
+      <td>{{ metric.windDirection }}</td>
+      <td>{{ metric.windSpeed }}</td>
+    </tr>
+  </table>
+</div>
 
 <app-metric-detail [metric]="selectedMetric"></app-metric-detail>

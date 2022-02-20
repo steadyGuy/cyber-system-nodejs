@@ -1,0 +1,8 @@
+<div *ngIf="metric">
+  <h2>{{ metric.date | uppercase }} Details</h2>
+  <div><span>id: </span>{{ metric._id }}</div>
+  <div>
+    <label for="metric-date">metric date: </label>
+    <input id="metric-date" [(ngModel)]="metric.date" placeholder="date" />
+  </div>
+</div>

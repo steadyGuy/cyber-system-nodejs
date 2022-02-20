@@ -1,0 +1,21 @@
+<h2>Metrics</h2>
+<table class="metrics">
+  <tr>
+    <th>Date</th>
+    <th>Temperature</th>
+    <th>Wind Direction</th>
+    <th>Wind Speed</th>
+  </tr>
+  <tr *ngFor="let metric of metrics">
+    <td>
+      <button type="button" (click)="onSelect(metric)" [class.selected]="metric === selectedMetric">
+       {{ metric.date }}
+      </button>
+    </td>
+    <td>{{metric.temperature}}</td>
+    <td>{{metric.windDirection}}</td>
+    <td>{{metric.windSpeed}}</td>
+  </tr>
+</table>
+
+<app-metric-detail [metric]="selectedMetric"></app-metric-detail>

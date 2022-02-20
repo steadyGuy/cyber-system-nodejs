@@ -1,17 +1,17 @@
 version: '3'
 
 services:
-  # frontend-app:
-  #   build:
-  #     context: .
-  #     dockerfile: DockerfileFrontend
-  #   image: frontend-app
-  #   container_name: frontend-app
-  #   restart: unless-stopped
-  #   networks:
-  #     - app-network
-  #   ports:
-  #     - "81:80"
+  frontend-app:
+    build:
+      context: .
+      dockerfile: DockerfileFrontend
+    image: frontend-app
+    container_name: frontend-app
+    restart: unless-stopped
+    networks:
+      - app-network
+    ports:
+      - "80:80"
   node-app:
     build:
       context: .

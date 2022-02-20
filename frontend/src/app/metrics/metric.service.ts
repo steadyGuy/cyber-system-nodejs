@@ -4,12 +4,13 @@ import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from '../messages/message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Metric } from '../metric';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MetricService {
-  private metricsUrl = 'http://localhost:3000/api/metrics'; // URL to web api
+  private metricsUrl = `${environment.apiURL}/api/metrics`; // URL to web api
 
   constructor(
     private http: HttpClient,

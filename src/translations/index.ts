@@ -1,21 +1,31 @@
 const translations: Record<string, string> = {
-    'Ю-В': 'S-E',
-    'Южный': 'East',
-    'Ю-З': 'E-W',
-    'Западный': 'West',
-    'Переменный': 'Rotative',
-    'С-З': 'N-W',
-    'Северный': 'North',
-    'С-В': 'S-E',
-    'Восточный': 'East'
+  // S-E
+  'Ю-В': '135',
+  // South 
+  'Южный': '180',
+  // S-W
+  'Ю-З': '225',
+  // West 
+  'Западный': '270',
+  // just change to С-В
+  // N-E
+  'Переменный': '45',
+  // N-W
+  'С-З': '315',
+  // North
+  'Северный': '360',
+  // N-E
+  'С-В': '45',
+  // East 
+  'Восточный': '90'
 };
 
 export let translationsCode: Record<string, number> = {};
 export let translationsStrings: Record<number, string> = {};
 
 Object.keys(translations).forEach((tName, i) => {
-  translationsCode = {...translationsCode, [tName]: i}
-  translationsStrings = {...translationsStrings, [i]: tName}
+translationsCode = {...translationsCode, [tName]: i}
+translationsStrings = {...translationsStrings, [i]: tName}
 });
 
 export default translations;
